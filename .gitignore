@@ -1,0 +1,39 @@
+# Local backup containing old OpenRouter code
+/openrouter_service_backup.dart
+
+# Secrets and Python environments
+**/.env
+**/.env.*
+!**/.env.example
+**/venv/
+**/.venv/
+**/__pycache__/
+
+# Flutter generated files
+/build/
+/.dart_tool/
+**/build/
+**/.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Android generated and local files
+android/.gradle/
+android/local.properties
+
+# Firebase generated cache
+.firebase/
+
+# Generated platform files
+ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/
+macos/Flutter/ephemeral/
+linux/flutter/ephemeral/
+windows/flutter/ephemeral/
+
+ios/Flutter/flutter_export_environment.sh

@@ -1,0 +1,371 @@
+MOOD: HAPPY
+
+People feeling happy may enjoy:
+- Pizza
+- Burgers
+- Indian street food
+- Desserts
+- Ice cream
+
+HAPPY FOOD CHARACTERISTICS:
+- Fun and flavorful
+- Social and shareable
+- Comforting meals
+
+
+MOOD: STRESSED
+
+People feeling stressed may prefer:
+- Dark chocolate
+- Oatmeal
+- Avocado
+- Nuts
+- Warm comfort food
+
+STRESSED FOOD CHARACTERISTICS:
+- Comforting
+- Nutrient-rich
+- Easy to eat
+- Foods that may help create a relaxing meal experience
+
+
+MOOD: TIRED
+
+People feeling tired may prefer:
+- Oatmeal
+- Bananas
+- Eggs
+- Rice
+- Protein-rich meals
+
+TIRED FOOD CHARACTERISTICS:
+- Simple
+- Filling
+- Energy-supporting
+
+
+MOOD: WORKOUT
+
+After or around a workout, suitable foods may include:
+- Eggs
+- Chicken
+- Paneer
+- Oatmeal
+- Bananas
+- Protein-rich meals
+
+WORKOUT FOOD CHARACTERISTICS:
+- Protein-rich
+- Energy-supporting
+- Balanced meals
+
+
+MOOD: STUDY
+
+During study sessions, suitable foods may include:
+- Nuts
+- Oatmeal
+- Fruits
+- Dark chocolate
+- Light sandwiches
+
+STUDY FOOD CHARACTERISTICS:
+- Convenient
+- Not too heavy
+- Easy to consume while studying
+
+
+MOOD: ROMANTIC
+
+For a romantic meal, suitable options may include:
+- Pasta
+- Pizza
+- Chocolate desserts
+- Indian cuisine
+- Desserts
+
+ROMANTIC FOOD CHARACTERISTICS:
+- Enjoyable
+- Shareable
+- Special-occasion friendly
+
+
+CUISINE: INDIAN
+
+Indian cuisine includes:
+- North Indian
+- South Indian
+- Punjabi
+- Mughlai
+- Gujarati
+- Bengali
+
+Popular Indian foods include:
+- Paneer
+- Dal
+- Biryani
+- Chole
+- Dosa
+- Butter chicken
+
+
+CUISINE: CHINESE
+
+Chinese cuisine commonly includes:
+- Noodles
+- Fried rice
+- Manchurian
+- Dumplings
+- Stir-fried dishes
+
+
+DIET: VEGETARIAN
+
+Vegetarian-friendly foods include:
+- Paneer
+- Dal
+- Vegetables
+- Rice
+- Dosa
+- Tofu
+- Salads
+
+
+DIET: NON-VEGETARIAN
+
+Non-vegetarian foods may include:
+- Chicken
+- Fish
+- Eggs
+- Mutton
+
+
+BUDGET
+
+For a lower budget:
+- Street food
+- Thalis
+- Fast food
+- Small local restaurants
+
+For a medium budget:
+- Casual dining
+- Cafes
+- Popular restaurant chains
+
+For a higher budget:
+- Fine dining
+- Premium restaurants
+- Special occasion restaurants
+
+
+HOME COOKING
+
+For simple Indian home meals:
+- Dal + Roti
+- Dal + Rice
+- Aloo Jeera + Roti
+- Aloo Matar + Roti
+- Rajma + Rice
+- Chole + Rice
+- Khichdi
+- Vegetable Pulao
+- Paneer Bhurji + Roti
+- Vegetable Poha
+- Upma
+- Dosa + Sambar
+- Paratha + Curd
+
+HOME COOKING CHARACTERISTICS:
+- Simple
+- Family-friendly
+- Practical
+- Suitable for everyday meals
+- Easy to prepare at home
+
+
+QUICK HOME MEALS
+
+For meals that can be prepared quickly:
+- Poha
+- Upma
+- Vegetable Sandwich
+- Besan Chilla
+- Egg Bhurji
+- Paneer Bhurji
+- Khichdi
+
+QUICK MEAL CHARACTERISTICS:
+- Simple preparation
+- Suitable for busy days
+- Practical for breakfast, lunch or dinner
+
+
+INGREDIENT-BASED COOKING
+
+When users mention ingredients they already have at home,
+suggest dishes that reasonably use those ingredients.
+
+Examples:
+
+Potato + peas:
+- Aloo Matar
+
+Potato + cumin:
+- Aloo Jeera
+
+Paneer + onion + tomato:
+- Paneer Bhurji
+- Paneer-based curry
+
+Rice + vegetables:
+- Vegetable Pulao
+
+Dal + rice:
+- Dal Rice
+
+Potato + flour:
+- Aloo Paratha
+
+Besan:
+- Besan Chilla
+
+Poha:
+- Vegetable Poha
+
+
+FAMILY MEALS
+
+For family meals, suitable home-cooked options include:
+- Dal + Roti
+- Dal + Rice
+- Rajma + Rice
+- Chole + Rice
+- Aloo Matar + Roti
+- Paneer Bhurji + Roti
+- Vegetable Pulao
+- Khichdi
+- Dosa + Sambar
+- Paratha + Curd
+
+FAMILY MEAL CHARACTERISTICS:
+- Easy to share
+- Suitable for everyday family meals
+- Flexible with common ingredients
+
+
+BREAKFAST IDEAS
+
+Common home breakfast options include:
+- Poha
+- Upma
+- Besan Chilla
+- Aloo Paratha
+- Vegetable Sandwich
+- Dosa
+- Eggs
+- Oatmeal
+
+BREAKFAST CHARACTERISTICS:
+- Simple
+- Convenient
+- Suitable for starting the day
+
+
+LUNCH IDEAS
+
+Common home lunch options include:
+- Dal + Rice
+- Dal + Roti
+- Rajma + Rice
+- Chole + Rice
+- Aloo Matar + Roti
+- Vegetable Pulao
+- Paneer + Roti
+
+LUNCH CHARACTERISTICS:
+- Filling
+- Balanced
+- Suitable for everyday meals
+
+
+DINNER IDEAS
+
+Common home dinner options include:
+- Dal + Roti
+- Dal + Rice
+- Khichdi
+- Aloo Matar + Roti
+- Paneer Bhurji + Roti
+- Vegetable Pulao
+- Rajma + Rice
+- Chole + Rice
+
+DINNER CHARACTERISTICS:
+- Comforting
+- Filling
+- Family-friendly
+- Suitable for home cooking
+
+
+COOKING PREFERENCES
+
+For users asking for quick meals:
+- Prefer simple dishes with fewer preparation steps.
+
+For users asking for family meals:
+- Prefer shareable and familiar home-cooked dishes.
+
+For users asking for healthy or light meals:
+- Prefer simple meals with vegetables, dal, fruits or other lighter food options from the available knowledge.
+
+For users asking what to cook with available ingredients:
+- Prioritize dishes that use the ingredients mentioned by the user.
+
+For users asking "Aaj kya banaye?":
+- Suggest 2-4 practical home-cooked options.
+- Consider mood, diet, cuisine and any ingredients mentioned.
+- Do not automatically recommend restaurants.
+
+
+HOME COOKING USER EXAMPLES
+
+User:
+"Aaj kya banaye?"
+
+Suitable suggestions:
+- Dal + Roti
+- Aloo Matar + Roti
+- Khichdi
+- Vegetable Pulao
+
+User:
+"Ghar mein aloo aur matar hain, kya banaun?"
+
+Suitable suggestion:
+- Aloo Matar + Roti
+
+User:
+"Mere paas paneer, onion aur tomato hain."
+
+Suitable suggestions:
+- Paneer Bhurji
+- Paneer-based curry
+
+User:
+"Kuch jaldi banne wala batao."
+
+Suitable suggestions:
+- Poha
+- Upma
+- Besan Chilla
+- Paneer Bhurji
+
+User:
+"4 logon ke liye ghar ka dinner suggest karo."
+
+Suitable suggestions:
+- Dal + Roti
+- Aloo Matar + Roti
+- Rajma + Rice
+- Vegetable Pulao
