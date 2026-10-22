@@ -2,8 +2,6 @@ from pathlib import Path
 import re
 import os
 
-from sentence_transformers import SentenceTransformer
-from sklearn.metrics.pairwise import cosine_similarity
 from google import genai
 from dotenv import load_dotenv
 
@@ -47,22 +45,10 @@ KNOWLEDGE_FILE = (
 
 
 # =====================================================
-# EMBEDDING MODEL
+# LIGHTWEIGHT RETRIEVAL (NO EMBEDDING MODEL)
 # =====================================================
 
-print(
-    "Loading MoodMeal embedding model...",
-    flush=True,
-)
-
-model = SentenceTransformer(
-    "all-MiniLM-L6-v2"
-)
-
-print(
-    "Embedding model loaded.",
-    flush=True,
-)
+# Keyword-based retrieval keeps RAM usage low on free hosting.
 
 
 # =====================================================
@@ -99,50 +85,25 @@ def create_chunks(text):
 
 
 # =====================================================
-# CREATE EMBEDDINGS
-# =====================================================
-
-def create_embeddings(chunks):
-
-    if not chunks:
-        return []
-
-    return model.encode(
-        chunks,
-        convert_to_numpy=True,
-        normalize_embeddings=True,
-    )
-
-
-# =====================================================
-# INITIALIZE RAG INDEX ONCE
+# INITIALIZE LIGHTWEIGHT KNOWLEDGE INDEX ONCE
 # =====================================================
 
 try:
-
     _knowledge = load_knowledge()
-
-    _chunks = create_chunks(
-        _knowledge
-    )
-
-    _embeddings = create_embeddings(
-        _chunks
-    )
+    _chunks = create_chunks(_knowledge)
+    _embeddings = []  # Retained for compatibility with the existing signature.
 
     print(
-        f"MoodMeal RAG index ready: "
+        f"MoodMeal lightweight knowledge index ready: "
         f"{len(_chunks)} chunks loaded.",
         flush=True,
     )
 
 except Exception as e:
-
     print(
         f"RAG index initialization error: {e}",
         flush=True,
     )
-
     _knowledge = ""
     _chunks = []
     _embeddings = []
@@ -158,60 +119,52 @@ def search_knowledge(
     embeddings=None,
     top_k=5,
 ):
-
+    """Rank knowledge chunks by keyword overlap without loading a ML model."""
     if chunks is None:
         chunks = _chunks
-
-    if embeddings is None:
-        embeddings = _embeddings
 
     if not chunks:
         return []
 
-    if len(embeddings) == 0:
-        return []
-
-    query = str(
-        query
-    ).strip()
-
+    query = str(query or "").strip().lower()
     if not query:
         return []
 
-    query_embedding = model.encode(
-        [query],
-        convert_to_numpy=True,
-        normalize_embeddings=True,
-    )
+    query_terms = {
+        term for term in re.findall(r"[^\W_]+", query, flags=re.UNICODE)
+        if len(term) > 1
+    }
+    if not query_terms:
+        return []
 
-    similarities = cosine_similarity(
-        query_embedding,
-        embeddings,
-    )[0]
+    scored = []
+    for index, chunk in enumerate(chunks):
+        chunk_text = str(chunk)
+        chunk_terms = {
+            term for term in re.findall(
+                r"[^\W_]+", chunk_text.lower(), flags=re.UNICODE
+            )
+            if len(term) > 1
+        }
+        if not chunk_terms:
+            continue
 
-    top_k = min(
-        max(int(top_k), 1),
-        len(chunks),
-    )
+        overlap = query_terms.intersection(chunk_terms)
+        if not overlap:
+            continue
 
-    top_indices = (
-        similarities.argsort()[-top_k:][::-1]
-    )
-
-    results = []
-
-    for index in top_indices:
-
-        results.append(
-            {
-                "chunk": chunks[index],
-                "score": float(
-                    similarities[index]
-                ),
-            }
+        score = len(overlap) / (
+            len(query_terms) ** 0.5 * len(chunk_terms) ** 0.5
         )
+        scored.append((score, index, chunk_text))
 
-    return results
+    scored.sort(key=lambda item: item[0], reverse=True)
+    limit = min(max(int(top_k), 1), len(scored))
+
+    return [
+        {"chunk": chunk_text, "score": float(score)}
+        for score, _, chunk_text in scored[:limit]
+    ]
 
 
 # =====================================================
