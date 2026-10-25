@@ -7,6 +7,7 @@ OVERPASS_SERVERS = [
     "https://overpass-api.de/api/interpreter",
     "https://overpass.private.coffee/api/interpreter",
     "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
 ]
 
 TRANSIENT_STATUS_CODES = {429, 500, 502, 503, 504}
@@ -53,7 +54,7 @@ async def fetch_restaurants(
     for cycle in range(2):
         for server in OVERPASS_SERVERS:
             try:
-                timeout = httpx.Timeout(40.0, connect=10.0)
+                timeout = httpx.Timeout(8.0, connect=4.0)
                 async with httpx.AsyncClient(timeout=timeout) as client:
                     response = await client.post(
                         server,

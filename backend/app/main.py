@@ -1,3 +1,5 @@
+import asyncio
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
@@ -725,44 +727,64 @@ async def ai_recommendation(
             "longitude": longitude,
         })
 
-    # Search each requested area independently and merge duplicate results.
+   
+    # Search each requested area independently with an overall time limit.
     seen_restaurants = set()
+
     for point in search_points:
         try:
             point_lat = point["latitude"]
             point_lon = point["longitude"]
-            nearby_restaurants = await fetch_restaurants(
-                latitude=point_lat,
-                longitude=point_lon,
-                radius_km=5,
+
+            nearby_restaurants = await asyncio.wait_for(
+                fetch_restaurants(
+                    latitude=point_lat,
+                    longitude=point_lon,
+                    radius_km=5,
+                ),
+                timeout=35.0,
             )
+
             ranked = recommend_restaurants(
                 restaurants=nearby_restaurants,
                 latitude=point_lat,
                 longitude=point_lon,
                 preferred_distance=5,
-                favorite_cuisines=[cuisine] if cuisine.strip().lower() != "any" else [],
+                favorite_cuisines=[
+                    cuisine
+                ] if cuisine.strip().lower() != "any" else [],
                 mood=mood,
             )
+
             for restaurant in ranked:
                 raw = restaurant.get("restaurant", restaurant)
                 tags = raw.get("tags", {}) if isinstance(raw, dict) else {}
                 name = restaurant.get("name") or tags.get("name") or ""
                 raw_id = raw.get("id") if isinstance(raw, dict) else None
                 dedupe_key = str(raw_id or name).strip().lower()
+
                 if not dedupe_key or dedupe_key in seen_restaurants:
                     continue
+
                 seen_restaurants.add(dedupe_key)
                 restaurant["matched_area"] = point.get("place", "Nearby")
                 restaurants.append(restaurant)
+
+        except asyncio.TimeoutError:
+            print(
+                f"Restaurant search timed out for {point.get('place', 'location')}.",
+                flush=True,
+            )
         except Exception as e:
             print(
-                f"Restaurant recommendation error for {point.get('place', 'location')}: {e}",
+                f"Restaurant recommendation error for "
+                f"{point.get('place', 'location')}: {e}",
                 flush=True,
             )
 
     # Keep the response concise and predictable for the Flutter UI.
     restaurants = restaurants[:10]
+
 
 
     # =================================================

@@ -3,6 +3,7 @@ import 'package:moodmeal/services/api_service.dart';
 import 'package:moodmeal/services/location_service.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AskMoodMealScreen extends StatefulWidget {
   const AskMoodMealScreen({super.key});
@@ -216,10 +217,20 @@ if (speechText.isNotEmpty) {
         if (restaurantText.isNotEmpty) restaurantText,
         if (locationNotice != null) locationNotice,
         if (wantsNearbyRestaurants &&
-            latitude != null &&
-            longitude != null &&
             (restaurants is! List || restaurants.isEmpty))
-          '\n\nI couldn’t retrieve nearby restaurant results right now. Please try again in a moment.',
+          () {
+            final mapsQuery =
+                latitude != null && longitude != null
+                    ? '$latitude,$longitude'
+                    : query;
+
+            final mapsUrl =
+                'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent('restaurants $mapsQuery')}';
+
+            // The response renderer turns this URL line into a clickable link.
+            return '\n\nFind restaurants on Google Maps:\n$mapsUrl';
+          }(),
+
       ].join('');
 
       if (!mounted) return;
@@ -869,9 +880,9 @@ const SizedBox(width: 4),
 
 Widget _buildAiResponse(String text) {
     final lines = text
-        .replaceAll('\\r\\n', '\\n')
-        .replaceAll('\\r', '\\n')
-        .split('\\n');
+        .replaceAll('\r\n', '\n')
+        .replaceAll('\r', '\n')
+        .split('\n');
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -881,6 +892,41 @@ Widget _buildAiResponse(String text) {
 
           if (line.isEmpty) {
             return const SizedBox(height: 7);
+          }
+
+          // Render Google Maps URLs as a tappable link instead of plain text.
+          if (line.startsWith('https://www.google.com/maps/search/')) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: InkWell(
+                onTap: () async {
+                  final uri = Uri.tryParse(line);
+                  if (uri == null) return;
+                  try {
+                    await launchUrl(
+                      uri,
+                      mode: LaunchMode.externalApplication,
+                    );
+                  } catch (e) {
+                    debugPrint('Could not open Google Maps link: $e');
+                  }
+                },
+                child: const Text(
+                  '📍 Find restaurants on Google Maps',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.5,
+                  ),
+                ),
+              ),
+            );
+          }
+
+          // Avoid showing the plain label line above the clickable URL.
+          if (line == 'Find restaurants on Google Maps') {
+            return const SizedBox.shrink();
           }
 
           // Remove Markdown heading markers.

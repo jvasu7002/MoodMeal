@@ -382,6 +382,16 @@ def generate_fallback_answer(
 
     # Ingredient-specific fallbacks should also follow the user's language.
     if "English" in response_language:
+        if any(word in text for word in ("pasta", "macaroni", "spaghetti", "penne")):
+            return (
+                "You can make a simple tomato pasta with pasta, tomatoes, garlic, "
+                "onion, and herbs. Boil pasta according to packet instructions. "
+                "Saute garlic and onion, add chopped tomatoes and herbs, then mix "
+                "in the cooked pasta. Add cheese if you like.\n\n"
+                "Food Safety & Allergens: Pasta commonly contains wheat/gluten; "
+                "cheese adds dairy. Ingredients and preparation methods vary. "
+                "Check labels and avoid cross-contact if you have an allergy."
+            )
         if any(word in text for word in ("paneer", "पनीर")):
             return "You can make Paneer Bhurji, Kadai Paneer, Paneer Paratha, or a simple paneer curry. For a quick meal, choose Paneer Bhurji.\n\nFood Safety & Allergens: Paneer contains milk/dairy. Recipes vary; check ingredients and cross-contact if you have an allergy."
         if any(word in text for word in ("aloo", "aaloo", "potato", "आलू")):
@@ -389,6 +399,16 @@ def generate_fallback_answer(
         return "You could make vegetable pulao, khichdi, dal-rice, or a seasonal vegetable curry. Tell me which ingredients you have and I can narrow it down.\n\nFood Safety & Allergens: Ingredients vary by recipe; check labels and known allergens."
 
     if "Hinglish" in response_language:
+        if any(word in text for word in ("pasta", "macaroni", "spaghetti", "penne")):
+            return (
+                "Bhai, simple tomato pasta bana sakte ho. Pasta ko packet instructions "
+                "ke according boil karo. Pan mein garlic aur onion saute karo, "
+                "chopped tomatoes aur herbs add karo, phir boiled pasta mix kar do. "
+                "Cheese optional hai.\n\n"
+                "Food Safety & Allergens: Pasta mein wheat/gluten ho sakta hai; "
+                "cheese use karne par dairy bhi hogi. Ingredients vary kar sakte hain. "
+                "Allergy ho toh labels aur cross-contact check karna."
+            )
         if any(word in text for word in ("paneer", "पनीर")):
             return "Bhai, paneer se Paneer Bhurji, Kadai Paneer, Paneer Paratha ya simple paneer curry bana sakte ho. Jaldi banana hai toh Paneer Bhurji best hai.\n\nFood Safety & Allergens: Paneer dairy/milk se banta hai. Recipe vary kar sakti hai; allergy ho toh ingredients aur cross-contact check karo."
         if any(word in text for word in ("aloo", "aaloo", "potato", "आलू")):

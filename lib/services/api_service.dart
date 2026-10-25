@@ -7,7 +7,7 @@ class ApiService {
   // =====================================================
 
   // Chrome / local PC testing
-  static const String baseUrl = "http://10.213.1.148:8000";
+  static const String baseUrl = "https://moodmeal-o6qa.onrender.com";
   // Physical Android phone ke liye later PC IP use karna hoga.
   // Example:
   // static const String baseUrl = "http://192.168.1.5:8000";
